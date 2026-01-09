@@ -1,0 +1,89 @@
+import { assets, blog_data } from "../assets/assets";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+
+const BlogItem = ({
+  title,
+  description,
+  category,
+  image,
+  author,
+  authorImg,
+  id,
+  likes,
+  comments,
+  views,
+  date,
+}) => {
+  return (
+    <div>
+      <article
+        key={id}
+        className="bg-white rounded-lg overflow-hidden border border-gray-200 shadow-sm hover:shadow-xl hover:border-rose-300 transition-all duration-300 hover:-translate-y-2 flex flex-col"
+      >
+        {/* Image Container */}
+        <div className="relative h-48 overflow-hidden bg-gray-200">
+          <img
+            src={image}
+            alt={title}
+            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+          />
+          <span className="absolute top-4 right-4 bg-rose-300 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+            {category}
+          </span>
+        </div>
+
+        {/* Content */}
+        <div className="p-6 flex flex-col grow">
+          {/* Title */}
+          <h2 className="text-xl font-bold text-black mb-3 line-clamp-2 leading-tight">
+            {title}
+          </h2>
+
+          {/* Description */}
+          <p className="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed grow">
+            {description.substring(0, 120)}...
+          </p>
+
+          {/* Author Info & Read More */}
+          <div className="flex items-center justify-between pb-4 border-b border-gray-200 mb-4">
+            <div className="flex items-center gap-3">
+              <img
+                src={authorImg}
+                alt={author}
+                className="w-9 h-9 rounded-full object-cover"
+              />
+              <div>
+                <p className="font-semibold text-sm text-black">{author}</p>
+                <p className="text-xs text-gray-500">{date}</p>
+              </div>
+            </div>
+            <Link
+              href={`/blogs/${id}`}
+              className="bg-black text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-rose-300 hover:text-black transition-all duration-300 hover:translate-x-1"
+            >
+              Read More
+            </Link>
+          </div>
+
+          {/* Stats */}
+          <div className="flex justify-between items-center text-sm font-medium">
+            <span className="text-gray-600">
+              <span className="mr-1">👁</span> {views}
+            </span>
+            <span className="text-gray-600">
+              <span className="mr-1">♥</span> {likes}
+            </span>
+            <span className="text-gray-600">
+              <span className="mr-1">💬</span> {comments}
+            </span>
+          </div>
+        </div>
+      </article>
+    </div>
+  );
+};
+
+export default BlogItem;
